@@ -4,7 +4,7 @@ const { SchoolClass } = require('../models');
 
 const createClass = catchAsync(async (req, res) => {
   const entity = new SchoolClass(req.body);
-  // entity.user = req.user._id;
+  entity.user = req.user._id;
   const saved = await entity.save();
 
   res.status(httpStatus.CREATED);
@@ -12,7 +12,8 @@ const createClass = catchAsync(async (req, res) => {
 });
 
 const getClasses = catchAsync(async (req, res) => {
-  const entities = await SchoolClass.find();
+  const userId = req.user._id;
+  const entities = await SchoolClass.find({ user: userId });
 
   if (!entities) {
     res.status(httpStatus.NOT_FOUND);

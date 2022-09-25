@@ -6,6 +6,7 @@ const schoolClassSchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
+      unique: true,
       index: true,
     },
     minGrade: {
@@ -21,7 +22,7 @@ const schoolClassSchema = mongoose.Schema(
     user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
-      required: false,
+      required: true,
     },
   },
   {
