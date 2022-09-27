@@ -14,13 +14,6 @@ const schoolClassSchema = mongoose.Schema(
       required: true,
       index: true,
     },
-    assignments: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Assignment',
-        required: false,
-      },
-    ],
     user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',

@@ -19,6 +19,11 @@ const assignmentSchema = mongoose.Schema(
       required: false,
       index: true,
     },
+    schoolClass: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'SchoolClass',
+      required: true,
+    },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
