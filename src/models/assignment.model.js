@@ -12,6 +12,11 @@ const assignmentSchema = mongoose.Schema(
       required: false,
       index: true,
     },
+    weight: {
+      type: Number,
+      required: false,
+      index: true,
+    },
     date: {
       type: Date,
       required: false,
