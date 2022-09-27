@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.route('/').post(auth(), assignmentController.create).get(auth(), assignmentController.list);
 
+router.route('/:id').patch(auth(), assignmentController.update);
+
 module.exports = router;

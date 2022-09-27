@@ -12,15 +12,15 @@ const create = catchAsync(async (req, res) => {
 });
 
 const get = catchAsync(async (req, res) => {
-  const entities = await SchoolClass.findOne({ _id: req.params.id });
+  const entity = await SchoolClass.findOne({ _id: req.params.id });
 
-  if (!entities) {
+  if (!entity) {
     res.status(httpStatus.NOT_FOUND);
     res.json('Not found.');
   }
 
   res.status(httpStatus.OK);
-  res.json(entities);
+  res.json(entity);
 });
 
 const list = catchAsync(async (req, res) => {
