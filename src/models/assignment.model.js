@@ -6,8 +6,6 @@ const assignmentSchema = mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
-      index: true,
     },
     grade: {
       type: Number,

@@ -11,6 +11,20 @@ const create = catchAsync(async (req, res) => {
   res.json(saved);
 });
 
+const list = catchAsync(async (req, res) => {
+  const query = req.query || {};
+  const entities = await Assignment.find(query);
+
+  if (!entities) {
+    res.status(httpStatus.NOT_FOUND);
+    res.json('Not found.');
+  }
+
+  res.status(httpStatus.OK);
+  res.json(entities);
+});
+
 module.exports = {
   create,
+  list,
 };
