@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { toJSON } = require('./plugins');
 
-const schoolClassSchema = mongoose.Schema(
+const assignmentSchema = mongoose.Schema(
   {
     title: {
       type: String,
@@ -9,18 +9,16 @@ const schoolClassSchema = mongoose.Schema(
       unique: true,
       index: true,
     },
-    minGrade: {
+    grade: {
       type: Number,
-      required: true,
+      required: false,
       index: true,
     },
-    assignments: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Assignment',
-        required: false,
-      },
-    ],
+    date: {
+      type: Date,
+      required: false,
+      index: true,
+    },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
@@ -33,11 +31,11 @@ const schoolClassSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-schoolClassSchema.plugin(toJSON);
+assignmentSchema.plugin(toJSON);
 
 /**
- * @typedef SchoolClass
+ * @typedef Assignment
  */
-const SchoolClass = mongoose.model('SchoolClass', schoolClassSchema);
+const Assignment = mongoose.model('Assignment', assignmentSchema);
 
-module.exports = SchoolClass;
+module.exports = Assignment;
