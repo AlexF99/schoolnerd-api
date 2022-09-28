@@ -22,9 +22,9 @@ const update = catchAsync(async (req, res) => {
     res.json('Not found.');
   }
 
-  await oldEntity.update(newEntity, { override: true, upsert: true });
+  await oldEntity.updateOne(newEntity, { override: true, upsert: true });
   entity.updatedBy = req.user._id;
-  const savedEntity = await Assignment.findById(entity._id);
+  const savedEntity = await Assignment.findById(req.params.id);
 
   res.status(httpStatus.OK);
   res.json(savedEntity);
