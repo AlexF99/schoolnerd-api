@@ -55,9 +55,22 @@ const list = catchAsync(async (req, res) => {
   res.json(entities);
 });
 
+const listAll = catchAsync(async (req, res) => {
+  const entities = await Assignment.find({ user: req.user._id }).populate('schoolClass');
+
+  if (!entities) {
+    res.status(httpStatus.NOT_FOUND);
+    res.json('Not found.');
+  }
+
+  res.status(httpStatus.OK);
+  res.json(entities);
+});
+
 module.exports = {
   create,
   list,
+  listAll,
   update,
   remove,
 };

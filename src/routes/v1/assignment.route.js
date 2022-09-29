@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.route('/').post(auth(), assignmentController.create).get(auth(), assignmentController.list);
 
+router.route('/all').get(auth(), assignmentController.listAll);
+
 router.route('/:id').patch(auth(), assignmentController.update).delete(auth(), assignmentController.remove);
 
 module.exports = router;
