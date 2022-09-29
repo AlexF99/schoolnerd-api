@@ -30,6 +30,18 @@ const update = catchAsync(async (req, res) => {
   res.json(savedEntity);
 });
 
+const remove = catchAsync(async (req, res) => {
+  const entity = await Assignment.findById(req.params.id);
+
+  if (!entity) {
+    res.status(httpStatus.NOT_FOUND);
+  }
+
+  await entity.remove();
+  res.status(httpStatus.NO_CONTENT);
+  res.end();
+});
+
 const list = catchAsync(async (req, res) => {
   const query = req.query || {};
   const entities = await Assignment.find(query);
@@ -47,4 +59,5 @@ module.exports = {
   create,
   list,
   update,
+  remove,
 };
