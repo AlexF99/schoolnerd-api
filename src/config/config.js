@@ -26,7 +26,6 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
-
 const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(process.env);
 
 if (error) {
@@ -37,8 +36,10 @@ module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   mongoose: {
-    // url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
-    url: `mongodb+srv://${envVars.DB_USER}:${envVars.DB_PASS}@${envVars.DB_HOST}/${envVars.DB_NAME}?retryWrites=true&w=majority`,
+    url:
+      envVars.NODE_ENV === 'production'
+        ? `mongodb+srv://${envVars.DB_USER}:${envVars.DB_PASS}@${envVars.DB_HOST}/${envVars.DB_NAME}?retryWrites=true&w=majority`
+        : envVars.MONGODB_URL,
     options: {
       useCreateIndex: true,
       useNewUrlParser: true,
