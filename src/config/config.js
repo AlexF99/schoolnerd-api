@@ -37,7 +37,7 @@ module.exports = {
   port: envVars.PORT,
   mongoose: {
     // url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
-    url: `mongodb+srv://${envVars.DB_USER}:${envVars.DB_PASS}@${envVars.DB_HOST}/${envVars.DB_NAME}`,
+    url: `mongodb+srv://${envVars.DB_USER}:${envVars.DB_PASS}@${envVars.DB_HOST}/${envVars.DB_NAME}?retryWrites=true&w=majority`,
     options: {
       useCreateIndex: true,
       useNewUrlParser: true,
