@@ -1,3 +1,4 @@
+const { omit } = require('lodash');
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { SchoolClass } = require('../models');
@@ -23,6 +24,39 @@ const get = catchAsync(async (req, res) => {
   res.json(entity);
 });
 
+const update = catchAsync(async (req, res) => {
+  const entity = new SchoolClass(req.body);
+  const newEntity = omit(entity.toObject(), '_id', '__v');
+  const oldEntity = await SchoolClass.findById(req.params.id);
+
+  if (!oldEntity) {
+    res.status(httpStatus.NOT_FOUND);
+    res.json('Not found.');
+  }
+
+  await oldEntity.updateOne(newEntity, { override: true, upsert: true });
+  entity.updatedBy = req.user._id;
+  const savedEntity = await SchoolClass.findById(req.params.id);
+
+  res.status(httpStatus.OK);
+  res.json(savedEntity);
+});
+
+const remove = catchAsync(async (req, res) => {
+  const entity = await SchoolClass.findById(req.params.id);
+
+  if (!entity) {
+    res.status(httpStatus.NOT_FOUND);
+  }
+
+  await entity.remove();
+
+  // TODO: remove all assignments with this class' id
+
+  res.status(httpStatus.NO_CONTENT);
+  res.end();
+});
+
 const list = catchAsync(async (req, res) => {
   const userId = req.user._id;
   const entities = await SchoolClass.find({ user: userId });
@@ -38,6 +72,8 @@ const list = catchAsync(async (req, res) => {
 
 module.exports = {
   create,
+  update,
+  remove,
   get,
   list,
 };
