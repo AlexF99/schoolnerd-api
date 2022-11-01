@@ -14,6 +14,22 @@ const schoolClassSchema = mongoose.Schema(
       required: true,
       index: true,
     },
+    days: [
+      {
+        day: {
+          type: String,
+        },
+        timeStart: {
+          type: String,
+        },
+        timeEnd: {
+          type: String,
+        },
+        classRoom: {
+          type: String,
+        },
+      },
+    ],
     user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
